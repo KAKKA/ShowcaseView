@@ -151,24 +151,25 @@ public class ShowcaseView extends RelativeLayout
 
         showcaseRadius = metricScale * INNER_CIRCLE_RADIUS;
         setOnTouchListener(this);
+        setOnClickListener(this);
 
-        if (!mOptions.noButton && mEndButton.getParent() == null) {
-            RelativeLayout.LayoutParams lps = getConfigOptions().buttonLayoutParams;
-            if (lps == null) {
-                lps = (LayoutParams) generateDefaultLayoutParams();
-                lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                lps.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                int margin = ((Number) (metricScale * 12)).intValue();
-                lps.setMargins(margin, margin, margin, margin);
-            }
-            mEndButton.setLayoutParams(lps);
-            mEndButton.setText(
-                    buttonText != null ? buttonText : getResources().getString(R.string.ok));
-            if (!hasCustomClickListener) {
-                mEndButton.setOnClickListener(this);
-            }
-            addView(mEndButton);
-        }
+//        if (!mOptions.noButton && mEndButton.getParent() == null) {
+//            RelativeLayout.LayoutParams lps = getConfigOptions().buttonLayoutParams;
+//            if (lps == null) {
+//                lps = (LayoutParams) generateDefaultLayoutParams();
+//                lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//                lps.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//                int margin = ((Number) (metricScale * 12)).intValue();
+//                lps.setMargins(margin, margin, margin, margin);
+//            }
+//            mEndButton.setLayoutParams(lps);
+//            mEndButton.setText(
+//                    buttonText != null ? buttonText : getResources().getString(R.string.ok));
+//            if (!hasCustomClickListener) {
+//                mEndButton.setOnClickListener(this);
+//            }
+//            addView(mEndButton);
+//        }
 
     }
 
@@ -334,9 +335,10 @@ public class ShowcaseView extends RelativeLayout
         if (isRedundant) {
             return;
         }
-        if (mEndButton != null) {
-            mEndButton.setOnClickListener(listener != null ? listener : this);
-        }
+//        if (mEndButton != null) {
+//            mEndButton.setOnClickListener(listener != null ? listener : this);
+//        }
+        setOnClickListener(listener != null ? listener : this);
         hasCustomClickListener = true;
     }
 

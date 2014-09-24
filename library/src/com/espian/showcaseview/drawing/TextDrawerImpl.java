@@ -107,13 +107,16 @@ public class TextDrawerImpl implements TextDrawer {
     	Rect showcase = showcaseView.hasShowcaseView() ?
     			mCalculator.getShowcaseRect() :
     			new Rect();
-    	
-    	int[] areas = new int[4]; //left, top, right, bottom
-    	areas[0] = showcase.left * canvasH;
-    	areas[1] = showcase.top * canvasW;
-    	areas[2] = (canvasW - showcase.right) * canvasH;
-    	areas[3] = (canvasH - showcase.bottom) * canvasW;
-    	
+
+//        int[] areas = new int[4]; //left, top, right, bottom
+        int[] areas = new int[2]; //top, bottom
+//        areas[0] = showcase.left * canvasH;
+//        areas[1] = showcase.top * canvasW;
+//        areas[2] = (canvasW - showcase.right) * canvasH;
+//        areas[3] = (canvasH - showcase.bottom) * canvasW;
+        areas[0] = showcase.top * canvasW;
+        areas[1] = (canvasH - showcase.bottom) * canvasW;
+
     	int largest = 0;
     	for(int i = 1; i < areas.length; i++) {
     		if(areas[i] > areas[largest])
@@ -122,48 +125,58 @@ public class TextDrawerImpl implements TextDrawer {
     	
     	// Position text in largest area
     	switch(largest) {
-    	case 0:
-    		mBestTextPosition[0] = PADDING * mDensityScale;
-    		mBestTextPosition[1] = PADDING * mDensityScale;
-    		mBestTextPosition[2] = showcase.left - 2 * PADDING * mDensityScale;
-    		break;
-    	case 1:
-    		mBestTextPosition[0] = PADDING * mDensityScale;
-    		mBestTextPosition[1] = (PADDING + ACTIONBAR_PADDING) * mDensityScale;
-    		mBestTextPosition[2] = canvasW - 2 * PADDING * mDensityScale;
-    		break;
-    	case 2:
-    		mBestTextPosition[0] = showcase.right + PADDING * mDensityScale;
-    		mBestTextPosition[1] = PADDING * mDensityScale;
-    		mBestTextPosition[2] = (canvasW - showcase.right) - 2 * PADDING * mDensityScale;
-    		break;
-    	case 3:
-    		mBestTextPosition[0] = PADDING * mDensityScale;
-    		mBestTextPosition[1] = showcase.bottom + PADDING * mDensityScale;
-    		mBestTextPosition[2] = canvasW - 2 * PADDING * mDensityScale;
-    		break;
+            case 0:
+                mBestTextPosition[0] = PADDING * mDensityScale;
+                mBestTextPosition[1] = (PADDING + ACTIONBAR_PADDING) * mDensityScale;
+                mBestTextPosition[2] = canvasW - 2 * PADDING * mDensityScale;
+                break;
+            case 1:
+                mBestTextPosition[0] = PADDING * mDensityScale;
+                mBestTextPosition[1] = showcase.bottom + PADDING * mDensityScale;
+                mBestTextPosition[2] = canvasW - 2 * PADDING * mDensityScale;
+                break;
+//            case 0:
+//                mBestTextPosition[0] = PADDING * mDensityScale;
+//                mBestTextPosition[1] = PADDING * mDensityScale;
+//                mBestTextPosition[2] = showcase.left - 2 * PADDING * mDensityScale;
+//                break;
+//            case 1:
+//                mBestTextPosition[0] = PADDING * mDensityScale;
+//                mBestTextPosition[1] = (PADDING + ACTIONBAR_PADDING) * mDensityScale;
+//                mBestTextPosition[2] = canvasW - 2 * PADDING * mDensityScale;
+//                break;
+//            case 2:
+//                mBestTextPosition[0] = showcase.right + PADDING * mDensityScale;
+//                mBestTextPosition[1] = PADDING * mDensityScale;
+//                mBestTextPosition[2] = (canvasW - showcase.right) - 2 * PADDING * mDensityScale;
+//                break;
+//            case 3:
+//                mBestTextPosition[0] = PADDING * mDensityScale;
+//                mBestTextPosition[1] = showcase.bottom + PADDING * mDensityScale;
+//                mBestTextPosition[2] = canvasW - 2 * PADDING * mDensityScale;
+//                break;
     	}
     	if(showcaseView.getConfigOptions().centerText) {
 	    	// Center text vertically or horizontally
-	    	switch(largest) {
-	    	case 0:
-	    	case 2:
-	    		mBestTextPosition[1] += canvasH / 4;
-	    		break;
-	    	case 1:
-	    	case 3:
+//	    	switch(largest) {
+//	    	case 0:
+//	    	case 2:
+//	    		mBestTextPosition[1] += canvasH / 4;
+//	    		break;
+//	    	case 1:
+//	    	case 3:
 	    		mBestTextPosition[2] /= 2;
 	    		mBestTextPosition[0] += canvasW / 4;
-	    		break;
-	    	} 
+//	    		break;
+//	    	}
     	} else {
     		// As text is not centered add actionbar padding if the text is left or right
-	    	switch(largest) {
-	    		case 0:
-	    		case 2:
+//	    	switch(largest) {
+//	    		case 0:
+//	    		case 2:
 	    			mBestTextPosition[1] += ACTIONBAR_PADDING * mDensityScale;
-	    			break;
-	    	}
+//	    			break;
+//	    	}
     	}
     }
 
