@@ -12,6 +12,7 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 
 /**
  * Draws the text as required by the ShowcaseView
@@ -122,7 +123,7 @@ public class TextDrawerImpl implements TextDrawer {
     		if(areas[i] > areas[largest])
     			largest = i;
     	}
-    	
+
     	// Position text in largest area
     	switch(largest) {
             case 0:

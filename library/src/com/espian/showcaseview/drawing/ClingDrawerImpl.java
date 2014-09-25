@@ -30,8 +30,9 @@ public class ClingDrawerImpl implements ClingDrawer {
         mEraser.setXfermode(mBlender);
         mEraser.setAntiAlias(true);
 
-        mShowcaseDrawable = resources.getDrawable(R.drawable.cling_bleached);
-        mShowcaseDrawable.setColorFilter(showcaseColor, PorterDuff.Mode.MULTIPLY);
+        mShowcaseDrawable = resources.getDrawable(R.drawable.cling_clear);
+//        mShowcaseDrawable = resources.getDrawable(R.drawable.cling_bleached);
+//        mShowcaseDrawable.setColorFilter(showcaseColor, PorterDuff.Mode.MULTIPLY);
     }
 
     @Override
@@ -82,10 +83,14 @@ public class ClingDrawerImpl implements ClingDrawer {
 
         Log.d("ShowcaseView", "Recalculated");
 
-        mShowcaseRect.left = cx - dw / 2;
-        mShowcaseRect.top = cy - dh / 2;
-        mShowcaseRect.right = cx + dw / 2;
-        mShowcaseRect.bottom = cy + dh / 2;
+//        mShowcaseRect.left = cx - dw / 2;
+//        mShowcaseRect.top = cy - dh / 2;
+//        mShowcaseRect.right = cx + dw / 2;
+//        mShowcaseRect.bottom = cy + dh / 2;
+        mShowcaseRect.left = cx;
+        mShowcaseRect.top = cy;
+        mShowcaseRect.right = cx;
+        mShowcaseRect.bottom = cy;
 
         return true;
 
