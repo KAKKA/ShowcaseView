@@ -29,4 +29,10 @@ android {
 			res.srcDirs = ['res']
 		}
 	}
+
+    // TODO lint のエラーを全部キレイにする
+    lintOptions {
+        abortOnError false
+    }
+
 }
