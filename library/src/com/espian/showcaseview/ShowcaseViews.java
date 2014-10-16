@@ -12,6 +12,7 @@ import java.util.List;
 public class ShowcaseViews {
 
     private final List<ShowcaseView> views = new ArrayList<ShowcaseView>();
+    private ShowcaseView currentView;
     private final List<float[]> animations = new ArrayList<float[]>();
     private final Activity activity;
     private OnShowcaseAcknowledged showcaseAcknowledgedListener = new OnShowcaseAcknowledged() {
@@ -132,7 +133,7 @@ public class ShowcaseViews {
         if (hasShot && view.getConfigOptions().shotType == ShowcaseView.TYPE_ONE_SHOT) {
             // The showcase has already been shot once, so we don't need to do show it again.
             view.setVisibility(View.GONE);
-            views.remove(0);
+            currentView = views.remove(0);
             animations.remove(0);
             view.getConfigOptions().fadeOutDuration = 0;
             view.performButtonClick();
@@ -148,8 +149,28 @@ public class ShowcaseViews {
             view.animateGesture(animation[1], animation[2], animation[3], animation[4], animation[0] == ABSOLUTE_COORDINATES);
         }
 
-        views.remove(0);
+        currentView = views.remove(0);
         animations.remove(0);
+    }
+
+    public void hideAndShowNextView() {
+        if (currentView == null) {
+            return;
+        }
+
+        currentView.onClick(currentView); //Needed for TYPE_ONE_SHOT
+        int fadeOutTime = currentView.getConfigOptions().fadeOutDuration;
+        if (fadeOutTime > 0) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showNextView(currentView);
+                }
+            }, fadeOutTime);
+        } else {
+            showNextView(currentView);
+        }
     }
 
     public boolean hasViews(){
